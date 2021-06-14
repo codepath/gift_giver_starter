@@ -1,11 +1,12 @@
 const express = require("express");
 const morgan = require("morgan");
-const votingRouter = require("./routes/voting"); //automatically finds js files
+const giftsRouter = require("./routes/gift-exchange"); //automatically finds js files
 
 const app = express();
 
 app.use(morgan("tiny")); //allows you to choose how it logs (parameter)
-app.use("/voting", votingRouter);
+
+app.use("/gift", giftsRouter);
 
 // this is how you start your server...
 // this is "/" route...
