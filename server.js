@@ -5,6 +5,8 @@ const giftsRouter = require("./routes/gift-exchange"); //automatically finds js 
 const app = express();
 
 app.use(morgan("tiny")); //allows you to choose how it logs (parameter)
+app.use(express.json()); // this will make sure that anytime we send a post request
+                            // express will parse that request as json
 
 app.use("/gift", giftsRouter);
 
