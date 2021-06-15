@@ -21,8 +21,8 @@ app.get("/hey", (req, res, next) => {
     res.status(200).json({hi: "hello"});
 });
 
-const port = 3000;
 
+const port = 3000;
 app.listen(port, () => {
     console.log(`🚀 Server listening on port ` + port);
 });
