@@ -1,6 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const giftsRouter = require("./routes/gift-exchange"); //automatically finds js files
+const { NotFoundError } = require("./utils/errors")
 
 const app = express();
 
@@ -19,6 +20,23 @@ app.get("/", (req, res, next) => {
 // this is "/hey" route...
 app.get("/hey", (req, res, next) => {
     res.status(200).json({hi: "hello"});
+});
+
+
+// Handle all 404 errors that weren't matched by a route
+app.use((req, res, next) => {
+    return next(new NotFoundError());
+});
+
+// Generic error handler - anything that is unhandled will be handled here
+app.use((err, req, res, next) => {
+
+    const status = err.status || 500;
+    const message = err.message;
+
+    return res.status(status).json({
+        error: { message, status }
+    });
 });
 
 

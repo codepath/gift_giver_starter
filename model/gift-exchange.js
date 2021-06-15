@@ -1,3 +1,5 @@
+const { BadRequestError } = require("../utils/errors");
+
 const participants = {
     resultPairs: [],
     resultTrad: [],
@@ -8,6 +10,14 @@ class GiftExchange {
     //gets array pairs
     static async getPairs(nameList) {
 
+        if (!nameList) {
+            console.log
+            throw new BadRequestError("You must have names in the request body to get pairs of names.");
+        }
+        if ( (nameList.length % 2) != 0 ) {
+            throw new BadRequestError("You must have even number of names in the request body to get pairs.");
+        }
+
         //clears resultPairs
         participants.resultPairs = [];
 
@@ -15,7 +25,7 @@ class GiftExchange {
         let array = nameList.slice();
 
         //shuffling the array 
-        var currentIndex = array.length,  randomIndex;
+        var currentIndex = array.length, randomIndex;
         while (0 !== currentIndex) {    // While there remain elements to shuffle...
 
             // Pick a remaining element...
