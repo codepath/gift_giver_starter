@@ -10,14 +10,19 @@ router.get("/", async (req, res, next) => {
 
 // send data to server = use post request
 // ":" is a place holder for a path parameter
-router.post("/:giftName", async (req, res, next) => {
+router.post("/pairs", async (req, res, next) => {
+    
+    const names = req.body.names;
+    const pairs = await GiftExchange.getPairs(names);
+    res.status(200).json(pairs);
+});
 
-    console.log(req.body);
-
-    const gname = req.params.giftName;
-    const user = req.body.user;
-    const glist = await GiftExchange.recordVote(gname, user);
-    res.status(200).json(glist);
+router.post("/traditional", async (req, res, next) => {
+    
+    const names = req.body.names;
+    const pairs = await GiftExchange.getPairs(names);
+    const traditional = await GiftExchange.getTraditional(pairs);
+    res.status(200).json(traditional);
 });
 
 //exports router - so other applications can have access to this "router"
